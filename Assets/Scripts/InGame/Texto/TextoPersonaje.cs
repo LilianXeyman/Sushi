@@ -23,7 +23,7 @@ public class TextoPersonaje : MonoBehaviour
         "¿Sabías que este pequeño restaurante esconde una leyenda? Mi difunto Maestro Kaito, tu ancestro, solía decir:",
         "'El sushi es poesía y cada rollo, un verso que conquista corazones'",
         "¡Y hoy, tú tienes la oportunidad de escribir nuevos capítulos en esta historia!",
-        "Hoy comenzarás tu aventura para convertir este restaurante en el mejor de la ciudad",
+        "Hoy comenzarás tu aventura para convertir este restaurante en el mejor de la ciudad.",
         "Pero antes de ensuciarte las manos, dime, ¿qué te gustaría saber primero?"
     };
 
