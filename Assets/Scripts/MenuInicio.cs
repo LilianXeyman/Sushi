@@ -35,6 +35,14 @@ public class MenuInicio : MonoBehaviour
     [SerializeField]
     Vector2 posInicialCoche;
 
+    [SerializeField]
+    float posFinalCoche;
+
+    [SerializeField]
+    float tiempoAnimCoche;
+
+    [SerializeField]
+    LeanTweenType animCurvCoche;
     private void Awake()
     {
         if (Instance == null)
@@ -87,6 +95,9 @@ public class MenuInicio : MonoBehaviour
     {
         //Instanciar el coche y moverlo en el eje X con LeanTween. Que el recorrido lo haga en 2 s y luego se destruya  
         cocheInGame = Instantiate(coche, posInicialCoche, Quaternion.identity);
+        LeanTween.moveLocalX(cocheInGame, posFinalCoche, tiempoAnimCoche).setEase(animCurvCoche).setOnComplete(() => { 
+        Destroy(cocheInGame.gameObject);
+        });
         timerCoche = timerCocheRestart;
     }
 }

@@ -42,7 +42,7 @@ public class TextoPersonaje : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit") && !escribiendo && dialogoIndex < dialogos.Length - 1)
+        if ((Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0)) && !escribiendo && dialogoIndex < dialogos.Length - 1)
         {
             dialogoIndex++;
             StartCoroutine(EscribirTexto(dialogos[dialogoIndex]));
