@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuInicio : MonoBehaviour
 {
@@ -93,11 +94,48 @@ public class MenuInicio : MonoBehaviour
     }
     void MoverCoche()
     {
-        //Instanciar el coche y moverlo en el eje X con LeanTween. Que el recorrido lo haga en 2 s y luego se destruya  
-        cocheInGame = Instantiate(coche, posInicialCoche, Quaternion.identity);
-        LeanTween.moveLocalX(cocheInGame, posFinalCoche, tiempoAnimCoche).setEase(animCurvCoche).setOnComplete(() => { 
-        Destroy(cocheInGame.gameObject);
-        });
+        // Obtener el Canvas en la escena (Asegúrate de asignarlo en el Inspector)
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("No se encontró un Canvas en la escena.");
+            return;
+        }
+
+        // Instanciar el coche dentro del Canvas
+        cocheInGame = Instantiate(coche, canvas.transform);
+        cocheInGame.SetActive(true);
+
+        // Obtener y ajustar el RectTransform
+        RectTransform rectTransform = cocheInGame.GetComponent<RectTransform>();
+        if (rectTransform == null)
+        {
+            Debug.LogError("El objeto instanciado no tiene un RectTransform.");
+            return;
+        }
+
+        rectTransform.anchoredPosition = posInicialCoche; // Ajustar la posición inicial
+        //rectTransform.sizeDelta = new Vector2(200, 100); // Ajustar tamaño
+
+        // Verificar que la imagen está activa
+        Image img = cocheInGame.GetComponent<Image>();
+        if (img != null)
+        {
+            img.enabled = true;
+            img.color = Color.white;
+        }
+        else
+        {
+            Debug.LogError("El coche instanciado no tiene un componente Image.");
+        }
+
+        // Mover el coche con LeanTween
+        LeanTween.moveX(rectTransform, posFinalCoche, tiempoAnimCoche)
+            .setEase(animCurvCoche)
+            .setOnComplete(() => {
+                Destroy(cocheInGame.gameObject);
+            });
+
         timerCoche = timerCocheRestart;
     }
 }
